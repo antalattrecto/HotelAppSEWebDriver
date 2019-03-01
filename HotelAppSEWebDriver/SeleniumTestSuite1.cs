@@ -21,7 +21,7 @@ namespace SeleniumTests
         public void SetupTest()
         {
             driver = new FirefoxDriver();
-            baseURL = "https://www.katalon.com/";
+            baseURL = "https://www.adactin.com/HotelApp/";
             verificationErrors = new StringBuilder();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
@@ -41,9 +41,18 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void TheLoginBookLogout001Test()
+
+        public void HomePage000()
         {
-            driver.Navigate().GoToUrl("https://www.adactin.com/HotelApp/index.php");
+            driver.Navigate().GoToUrl(baseURL);
+            Assert.IsTrue(IsElementPresent(By.Id("login")));
+            Assert.IsTrue(IsElementPresent(By.LinkText("New User Register Here")));
+        }
+
+        [Test]
+        public void LoginBookLogout001()
+        {
+            driver.Navigate().GoToUrl(baseURL);
             driver.FindElement(By.XPath("//*[@id=\"username\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
             driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys("makrobaktat");
@@ -91,7 +100,30 @@ namespace SeleniumTests
             driver.FindElement(By.LinkText("Logout")).Click();
             driver.FindElement(By.LinkText("Click here to login again")).Click();
         }
-        private bool IsElementPresent(By by)
+
+        [Test]
+        public void RegisterUser002()
+        {
+            driver.Navigate().GoToUrl(baseURL);
+            driver.FindElement(By.XPath("/html/body/table[2]/tbody/tr/td[2]/form/table/tbody/tr[7]/td/a")).Click();
+            driver.FindElement(By.Id("username")).Clear();
+            driver.FindElement(By.Id("username")).SendKeys("makrobaktat");
+            driver.FindElement(By.Id("password")).Clear();
+            driver.FindElement(By.Id("password")).SendKeys("1234567");
+            driver.FindElement(By.Id("re_password")).Clear();
+            driver.FindElement(By.Id("re_password")).SendKeys("1234567");
+            driver.FindElement(By.Id("full_name")).Clear();
+            driver.FindElement(By.Id("full_name")).SendKeys("Berek Herek");
+            driver.FindElement(By.Id("email_add")).Clear();
+            driver.FindElement(By.Id("email_add")).SendKeys("test@test.tc");
+            driver.FindElement(By.Id("tnc_box")).Click();
+            driver.FindElement(By.Id("Submit")).Click();
+            Assert.AreEqual("Captcha is Empty", driver.FindElement(By.Id("captcha_span")).Text);
+
+
+        }
+
+            private bool IsElementPresent(By by)
         {
             try
             {
