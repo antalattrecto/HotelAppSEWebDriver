@@ -120,10 +120,37 @@ namespace SeleniumTests
             driver.FindElement(By.Id("Submit")).Click();
             Assert.AreEqual("Captcha is Empty", driver.FindElement(By.Id("captcha_span")).Text);
 
-
         }
 
-            private bool IsElementPresent(By by)
+        [Test]
+        public void RegisterUserResetButton003()
+        {
+            driver.Navigate().GoToUrl(baseURL);
+            driver.FindElement(By.XPath("/html/body/table[2]/tbody/tr/td[2]/form/table/tbody/tr[7]/td/a")).Click();
+            driver.FindElement(By.Id("username")).Clear();
+            driver.FindElement(By.Id("username")).SendKeys("makrobaktat");
+            driver.FindElement(By.Id("password")).Clear();
+            driver.FindElement(By.Id("password")).SendKeys("1234567");
+            driver.FindElement(By.Id("re_password")).Clear();
+            driver.FindElement(By.Id("re_password")).SendKeys("1234567");
+            driver.FindElement(By.Id("full_name")).Clear();
+            driver.FindElement(By.Id("full_name")).SendKeys("Berek Herek");
+            driver.FindElement(By.Id("email_add")).Clear();
+            driver.FindElement(By.Id("email_add")).SendKeys("test@test.tc");
+            driver.FindElement(By.Id("tnc_box")).Click();
+            driver.FindElement(By.Id("Reset")).Click();
+            driver.FindElement(By.Id("Submit")).Click();
+            Assert.AreEqual("Username is Empty", driver.FindElement(By.Id("username_span")).Text);
+            Assert.AreEqual("Password is Empty", driver.FindElement(By.Id("password_span")).Text);
+            Assert.AreEqual("Confirm Password is Empty", driver.FindElement(By.Id("re_password_span")).Text);
+            Assert.AreEqual("Full Name is Empty", driver.FindElement(By.Id("full_name_span")).Text);
+            Assert.AreEqual("Email Address is Empty", driver.FindElement(By.Id("email_add_span")).Text);
+            Assert.AreEqual("Captcha is Empty", driver.FindElement(By.Id("captcha_span")).Text);
+            Assert.AreEqual("You must agree to Terms and Conditions", driver.FindElement(By.Id("tnc_span")).Text);
+
+
+        }
+        private bool IsElementPresent(By by)
         {
             try
             {
