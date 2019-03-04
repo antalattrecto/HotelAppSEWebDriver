@@ -208,6 +208,35 @@ namespace SeleniumTests
             Assert.AreEqual("You must agree to Terms and Conditions", driver.FindElement(By.Id("tnc_span")).Text);
             driver.FindElement(By.LinkText("Go back to Login page")).Click();
 
+        }
+
+        [Test]
+        public void SearchSelect005()
+        {
+            driver.Navigate().GoToUrl(baseURL);
+            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys("makrobaktat");
+            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"password\"]")).SendKeys("P455w0rd!");
+            driver.FindElement(By.XPath("//*[@id=\"login\"]")).Click();
+            Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
+            driver.FindElement(By.XPath("//*[@id=\"location\"]")).Click();
+            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"location\"]"))).SelectByText("Sydney");
+            driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
+            driver.FindElement(By.Id("Submit")).Click();
+            var a = driver.FindElement(By.XPath("(//input[@type='text'])[2]")).GetAttribute("value");
+            //Assert.AreEqual("Sydney", a);
+
+            if (a.Equals("Sydney", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Console.WriteLine("Correct " + a);
+            }
+            else
+            {
+                Console.WriteLine("Incorrect" + a);
+            }
 
         }
         private bool IsElementPresent(By by)
