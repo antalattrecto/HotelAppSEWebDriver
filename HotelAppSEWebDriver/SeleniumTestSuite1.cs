@@ -325,6 +325,36 @@ namespace SeleniumTests
 
         }
 
+        [Test]
+        
+        public void ResetPassword007()
+        {
+            LoginMethod(username, password);
+            driver.FindElement(By.XPath("//a[contains(.,'Change Password')]")).Click();
+            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).Clear();
+            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).SendKeys(password);
+            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).Clear();
+            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).SendKeys("Tujok123");
+            driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).Clear();
+            driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).SendKeys("Tujok123");
+            driver.FindElement(By.XPath("//input[contains(@type,'submit')]")).Click();
+            password = "Tujok123";
+            LoginMethod(username, password);
+            driver.FindElement(By.XPath("//a[contains(.,'Change Password')]")).Click();
+            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).Clear();
+            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).SendKeys(password);
+            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).Clear();
+            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).SendKeys("adactin123");
+            driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).Clear();
+            driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).SendKeys("adactin123");
+            driver.FindElement(By.XPath("//input[contains(@type,'submit')]")).Click();
+            var result = driver.FindElement(By.XPath("//span[@class='reg_error'][contains(.,'Your Password is successfully updated!!!')]")).Text;
+            Assert.AreEqual("Your Password is successfully updated!!!", result);
+            password = "adactin123";
+
+        }
+
+
 
         public override bool IsElementPresent(By by)
         {
