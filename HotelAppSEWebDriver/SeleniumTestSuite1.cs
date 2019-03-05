@@ -309,6 +309,22 @@ namespace SeleniumTests
 
         }
 
+        [Test]
+
+        public void TitleCheck006()
+        {
+            driver.Navigate().GoToUrl(baseURL);
+            string title = driver.Title;
+            //Assert.AreEqual("AdactIn.com - Hotel Reservation System", title);
+
+            if (title.Equals("AdactIn.com - Hotel Reservation System"))
+                Console.WriteLine("Test Passed - Title is: {0}", title);
+
+            else
+                Console.WriteLine("Test Failed - Title is: {0}", title);
+
+        }
+
 
         public override bool IsElementPresent(By by)
         {
