@@ -9,35 +9,82 @@ using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumTests
 {
-    [TestFixture]
-    public class SeleniumTestSuite1
+    public class TestMethods
     {
-        private IWebDriver driver;
-        private StringBuilder verificationErrors;
-        private string baseURL;
+        internal IWebDriver driver;
+        internal StringBuilder verificationErrors;
+        internal string baseURL;
+           
+         //implement Setup method in parent
+            public virtual void SetupTest()
+            {
+                driver = new FirefoxDriver();
+                baseURL = "https://www.adactin.com/HotelApp/";
+                verificationErrors = new StringBuilder();
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            }
+            
+
+            //implement TearDown method in parent class
+            public virtual void TeardownTest()
+            {
+                try
+                {
+                    driver.Quit();
+                }
+                catch (Exception)
+                {
+                    // Ignore errors if unable to close the browser
+                }
+                Assert.AreEqual("", verificationErrors.ToString());
+            }
+
+
+        //implement reusable methods
+            public void LoginMethod(string username, string password)
+        {
+            driver.Navigate().GoToUrl(baseURL);
+            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys(username);
+            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"password\"]")).SendKeys(password);
+            driver.FindElement(By.XPath("//*[@id=\"login\"]")).Click();
+        }
+
+        public void SearchMethod(string location)
+        {
+            
+            driver.FindElement(By.XPath("//*[@id=\"location\"]")).Click();
+            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"location\"]"))).SelectByText(location);
+            driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"room_nos\"]")).Click();
+            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"room_nos\"]"))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath("//option[@value='2']")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"adult_room\"]")).Click();
+            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"adult_room\"]"))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+        }
+    }
+
+    [TestFixture]
+    public class SeleniumTestSuite1 : TestMethods
+    {        
         private bool acceptNextAlert = true;
 
+
+        //from parent
         [SetUp]
-        public void SetupTest()
+        public override void SetupTest()
         {
-            driver = new FirefoxDriver();
-            baseURL = "https://www.adactin.com/HotelApp/";
-            verificationErrors = new StringBuilder();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            base.SetupTest();
         }
 
         [TearDown]
-        public void TeardownTest()
+        public override void TeardownTest()
         {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
+            base.TeardownTest();
         }
 
         [Test]
@@ -52,24 +99,14 @@ namespace SeleniumTests
         [Test]
         public void LoginBookLogout001()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys("makrobaktat");
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).SendKeys("P455w0rd!");
-            driver.FindElement(By.XPath("//*[@id=\"login\"]")).Click();
+            string username = "makrobaktat";
+            string password = "P455w0rd!";
+            string location = "Sydney";
+
+            LoginMethod(username, password);
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
-            driver.FindElement(By.XPath("//*[@id=\"location\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"location\"]"))).SelectByText("Sydney");
-            driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"room_nos\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"room_nos\"]"))).SelectByText("2 - Two");
-            driver.FindElement(By.XPath("//option[@value='2']")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"adult_room\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"adult_room\"]"))).SelectByText("2 - Two");
-            driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+            SearchMethod(location);
+
             driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
