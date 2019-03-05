@@ -14,9 +14,13 @@ namespace SeleniumTests
         internal IWebDriver driver;
         internal StringBuilder verificationErrors;
         internal string baseURL;
-           
-         //implement Setup method in parent
-            public virtual void SetupTest()
+        internal string username = "makrobaktat";
+        internal string password = "adactin123";
+        internal string location = "Sydney";
+        internal bool acceptNextAlert = true;
+
+        //implement Setup method in parent
+        public virtual void SetupTest()
             {
                 driver = new FirefoxDriver();
                 baseURL = "https://www.adactin.com/HotelApp/";
@@ -66,12 +70,60 @@ namespace SeleniumTests
             new SelectElement(driver.FindElement(By.XPath("//*[@id=\"adult_room\"]"))).SelectByText("2 - Two");
             driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
         }
+
+        public virtual bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public virtual bool IsAlertPresent()
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }
+            catch (NoAlertPresentException)
+            {
+                return false;
+            }
+        }
+
+        public virtual string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
+            }
+        }
     }
 
     [TestFixture]
     public class SeleniumTestSuite1 : TestMethods
     {        
-        private bool acceptNextAlert = true;
+        
 
 
         //from parent
@@ -99,9 +151,6 @@ namespace SeleniumTests
         [Test]
         public void LoginBookLogout001()
         {
-            string username = "makrobaktat";
-            string password = "P455w0rd!";
-            string location = "Sydney";
 
             LoginMethod(username, password);
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
@@ -141,24 +190,12 @@ namespace SeleniumTests
         [Test]
         public void BokkedItinerary002()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys("makrobaktat");
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).SendKeys("P455w0rd!");
-            driver.FindElement(By.XPath("//*[@id=\"login\"]")).Click();
+            LoginMethod(username, password);
+
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
-            driver.FindElement(By.XPath("//*[@id=\"location\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"location\"]"))).SelectByText("Sydney");
-            driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"room_nos\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"room_nos\"]"))).SelectByText("2 - Two");
-            driver.FindElement(By.XPath("//option[@value='2']")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"adult_room\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"adult_room\"]"))).SelectByText("2 - Two");
-            driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+
+            SearchMethod(location);
+
             driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
@@ -250,14 +287,9 @@ namespace SeleniumTests
         [Test]
         public void SearchSelect005()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys("makrobaktat");
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).SendKeys("P455w0rd!");
-            driver.FindElement(By.XPath("//*[@id=\"login\"]")).Click();
+            LoginMethod(username, password);
+
+
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
             driver.FindElement(By.XPath("//*[@id=\"location\"]")).Click();
             new SelectElement(driver.FindElement(By.XPath("//*[@id=\"location\"]"))).SelectByText("Sydney");
@@ -276,52 +308,25 @@ namespace SeleniumTests
             }
 
         }
-        private bool IsElementPresent(By by)
+
+
+        public override bool IsElementPresent(By by)
         {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+           return base.IsElementPresent(by);
+            
         }
 
-        private bool IsAlertPresent()
+        public override bool IsAlertPresent()
         {
-            try
-            {
-                driver.SwitchTo().Alert();
-                return true;
-            }
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }
+            return base.IsAlertPresent();
         }
 
-        private string CloseAlertAndGetItsText()
+        public override string CloseAlertAndGetItsText()
         {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
+            return base.CloseAlertAndGetItsText();
         }
+
+
+
     }
 }
