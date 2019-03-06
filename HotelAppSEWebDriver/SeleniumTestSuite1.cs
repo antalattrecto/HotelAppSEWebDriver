@@ -68,12 +68,11 @@ namespace SeleniumTests
 
             driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(location);
-            driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"room_nos\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"room_nos\"]"))).SelectByText("2 - Two");
-            driver.FindElement(By.XPath("//option[@value='2']")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"adult_room\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"adult_room\"]"))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_LocSydney"])).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"]))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"]))).SelectByText("2 - Two");
             driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
         }
 
@@ -149,20 +148,22 @@ namespace SeleniumTests
 
         public void HomePage000()
         {
+            var appSettings = ConfigurationManager.AppSettings;
+
             driver.Navigate().GoToUrl(baseURL);
-            Assert.IsTrue(IsElementPresent(By.Id("login")));
+            Assert.IsTrue(IsElementPresent(By.XPath(appSettings["Btn_Login_Login"])));
             Assert.IsTrue(IsElementPresent(By.LinkText("New User Register Here")));
         }
 
         [Test]
         public void LoginBookLogout001()
         {
-
+            var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
             SearchMethod(location);
 
-            driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Click();
@@ -196,13 +197,14 @@ namespace SeleniumTests
         [Test]
         public void BokkedItinerary002()
         {
+            var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
 
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
 
             SearchMethod(location);
 
-            driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Click();
@@ -300,7 +302,7 @@ namespace SeleniumTests
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
             driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText("Sydney");
-            driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Search_LocSydney"])).Click();
             driver.FindElement(By.Id("Submit")).Click();
             var a = driver.FindElement(By.XPath("(//input[@type='text'])[2]")).GetAttribute("value");
             //Assert.AreEqual("Sydney", a);
@@ -364,11 +366,12 @@ namespace SeleniumTests
         [Test]
         public void CancelItinerary008()
         {
+            var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
 
             SearchMethod(location);
 
-            driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
             driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Click();
@@ -414,8 +417,10 @@ namespace SeleniumTests
 
         public void SearchFieldValidation009()
         {
+            var appSettings = ConfigurationManager.AppSettings;
+
             LoginMethod(username, password);
-            driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             string message = driver.FindElement(By.XPath("//span[contains(.,'Please Select a Location')]")).Text;
             Assert.AreEqual("Please Select a Location", message);
         }
