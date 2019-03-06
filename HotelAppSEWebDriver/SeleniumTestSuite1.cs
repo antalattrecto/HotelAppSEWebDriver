@@ -19,6 +19,8 @@ namespace SeleniumTests
         internal string password = "adactin123";
         internal string location = "Sydney";
         internal bool acceptNextAlert = true;
+        
+
 
         //implement Setup method in parent
         public virtual void SetupTest()
@@ -48,21 +50,24 @@ namespace SeleniumTests
         //implement reusable methods
             public void LoginMethod(string username, string password)
         {
+            var appSettings = ConfigurationManager.AppSettings;
+
             driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.XPath(ConfigurationManager.AppSettings["Txt_Login_Username"])).Click();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys(username);
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"password\"]")).SendKeys(password);
-            driver.FindElement(By.XPath("//*[@id=\"login\"]")).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Username"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Username"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Username"])).SendKeys(username);
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Password"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Password"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Password"])).SendKeys(password);
+            driver.FindElement(By.XPath(appSettings["Btn_Login_Login"])).Click();
         }
 
         public void SearchMethod(string location)
         {
-            
-            driver.FindElement(By.XPath("//*[@id=\"location\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"location\"]"))).SelectByText(location);
+            var appSettings = ConfigurationManager.AppSettings;
+
+            driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(location);
             driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
             driver.FindElement(By.XPath("//*[@id=\"room_nos\"]")).Click();
             new SelectElement(driver.FindElement(By.XPath("//*[@id=\"room_nos\"]"))).SelectByText("2 - Two");
@@ -288,12 +293,13 @@ namespace SeleniumTests
         [Test]
         public void SearchSelect005()
         {
+            var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
 
 
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
-            driver.FindElement(By.XPath("//*[@id=\"location\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"location\"]"))).SelectByText("Sydney");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText("Sydney");
             driver.FindElement(By.XPath("//option[@value='Sydney']")).Click();
             driver.FindElement(By.Id("Submit")).Click();
             var a = driver.FindElement(By.XPath("(//input[@type='text'])[2]")).GetAttribute("value");
