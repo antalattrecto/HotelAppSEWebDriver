@@ -6,6 +6,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Configuration;
 
 namespace SeleniumTests
 {
@@ -48,7 +49,7 @@ namespace SeleniumTests
             public void LoginMethod(string username, string password)
         {
             driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.XPath("//*[@id=\"username\"]")).Click();
+            driver.FindElement(By.XPath(ConfigurationManager.AppSettings["Txt_Login_Username"])).Click();
             driver.FindElement(By.XPath("//*[@id=\"username\"]")).Clear();
             driver.FindElement(By.XPath("//*[@id=\"username\"]")).SendKeys(username);
             driver.FindElement(By.XPath("//*[@id=\"password\"]")).Click();
@@ -352,6 +353,82 @@ namespace SeleniumTests
             Assert.AreEqual("Your Password is successfully updated!!!", result);
             password = "adactin123";
 
+        }
+
+        [Test]
+        public void CancelItinerary008()
+        {
+            LoginMethod(username, password);
+
+            SearchMethod(location);
+
+            driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).SendKeys("Baktat");
+            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).SendKeys("Makroniciusz");
+            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"address\"]")).SendKeys("1 London Road");
+            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).SendKeys("1234567899876543");
+            driver.FindElement(By.XPath("//*[@id=\"cc_type\"]")).Click();
+            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_type\"]"))).SelectByText("American Express");
+            driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]")).Click();
+            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]"))).SelectByText("June");
+            driver.FindElement(By.XPath("//option[@value='6']")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cc_exp_year\"]")).Click();
+            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_exp_year\"]"))).SelectByText("2021");
+            driver.FindElement(By.XPath("//option[@value='2021']")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cc_cvv\"]")).Click();
+            driver.FindElement(By.XPath("//*[@id=\"cc_cvv\"]")).Clear();
+            driver.FindElement(By.XPath("//*[@id=\"cc_cvv\"]")).SendKeys("123");
+            driver.FindElement(By.XPath("//*[@id=\"book_now\"]")).Click();
+            var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
+            driver.FindElement(By.LinkText("Booked Itinerary")).Click();
+            driver.FindElement(By.Id("order_id_text")).Clear();
+            driver.FindElement(By.Id("order_id_text")).SendKeys(a);
+            driver.FindElement(By.Id("search_hotel_id")).Click();
+            driver.FindElement(By.XPath("(//input[@type='button'])[1]")).Click();
+            driver.SwitchTo().Alert().Accept();
+            driver.FindElement(By.Id("order_id_text")).Clear();
+            driver.FindElement(By.Id("order_id_text")).SendKeys(a);
+            driver.FindElement(By.Id("search_hotel_id")).Click();
+            var b = driver.FindElement(By.XPath("//label[contains(@class,'reg_error')]")).Text;
+            Assert.AreEqual("0 result(s) found. Show all", b);
+
+        }
+
+        [Test]
+
+        public void SearchFieldValidation009()
+        {
+            LoginMethod(username, password);
+            driver.FindElement(By.XPath("//*[@id=\"Submit\"]")).Click();
+            string message = driver.FindElement(By.XPath("//span[contains(.,'Please Select a Location')]")).Text;
+            Assert.AreEqual("Please Select a Location", message);
+        }
+
+        [Test]
+
+        public void CheckLoginGreeting010()
+        {
+            LoginMethod(username, password);
+
+            string greeting = driver.FindElement(By.XPath("//input[@type='text'][contains(@id,'show')]")).GetAttribute("value");
+
+            if (greeting.Equals("Hello makrobaktat!", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Console.WriteLine("Test Passed! Greeting is: {0}", greeting);
+            }
+
+            else
+                Console.WriteLine("Test Failed! Greeting is: {0}", greeting);
         }
 
 
