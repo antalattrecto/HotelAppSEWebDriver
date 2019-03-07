@@ -223,7 +223,6 @@ namespace SeleniumTests
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
             driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"]))).SelectByText("June");
-            driver.FindElement(By.XPath("//option[@value='6']")).Click();
             driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"]))).SelectByText("2021");
             driver.FindElement(By.XPath("//option[@value='2021']")).Click();
@@ -244,18 +243,20 @@ namespace SeleniumTests
         [Test]
         public void RegisterUser003()
         {
+            var appSettings = ConfigurationManager.AppSettings;
+
             driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.XPath("/html/body/table[2]/tbody/tr/td[2]/form/table/tbody/tr[7]/td/a")).Click();
-            driver.FindElement(By.Id("username")).Clear();
-            driver.FindElement(By.Id("username")).SendKeys("makrobaktat");
-            driver.FindElement(By.Id("password")).Clear();
-            driver.FindElement(By.Id("password")).SendKeys("1234567");
-            driver.FindElement(By.Id("re_password")).Clear();
-            driver.FindElement(By.Id("re_password")).SendKeys("1234567");
-            driver.FindElement(By.Id("full_name")).Clear();
-            driver.FindElement(By.Id("full_name")).SendKeys("Berek Herek");
-            driver.FindElement(By.Id("email_add")).Clear();
-            driver.FindElement(By.Id("email_add")).SendKeys("test@test.tc");
+            driver.FindElement(By.XPath(appSettings["Lnk_Login_Register"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_UserName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_UserName"])).SendKeys("makrobaktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_Password"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_Password"])).SendKeys("1234567");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_ConfirmPassword"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_ConfirmPassword"])).SendKeys("1234567");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_FullName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_FullName"])).SendKeys("Berek Herek");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).SendKeys("test@test.tc");
             driver.FindElement(By.Id("tnc_box")).Click();
             driver.FindElement(By.Id("Submit")).Click();
             Assert.AreEqual("Captcha is Empty", driver.FindElement(By.Id("captcha_span")).Text);
@@ -266,18 +267,20 @@ namespace SeleniumTests
         [Test]
         public void RegisterUserResetButton004()
         {
+            var appSettings = ConfigurationManager.AppSettings;
+
             driver.Navigate().GoToUrl(baseURL);
             driver.FindElement(By.XPath("/html/body/table[2]/tbody/tr/td[2]/form/table/tbody/tr[7]/td/a")).Click();
-            driver.FindElement(By.Id("username")).Clear();
-            driver.FindElement(By.Id("username")).SendKeys("makrobaktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_UserName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_UserName"])).SendKeys("makrobaktat");
             driver.FindElement(By.Id("password")).Clear();
             driver.FindElement(By.Id("password")).SendKeys("1234567");
             driver.FindElement(By.Id("re_password")).Clear();
             driver.FindElement(By.Id("re_password")).SendKeys("1234567");
-            driver.FindElement(By.Id("full_name")).Clear();
-            driver.FindElement(By.Id("full_name")).SendKeys("Berek Herek");
-            driver.FindElement(By.Id("email_add")).Clear();
-            driver.FindElement(By.Id("email_add")).SendKeys("test@test.tc");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_FullName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_FullName"])).SendKeys("Berek Herek");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).SendKeys("test@test.tc");
             driver.FindElement(By.Id("tnc_box")).Click();
             driver.FindElement(By.Id("Reset")).Click();
             driver.FindElement(By.Id("Submit")).Click();
