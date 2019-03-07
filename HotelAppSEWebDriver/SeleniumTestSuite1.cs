@@ -165,21 +165,21 @@ namespace SeleniumTests
 
             driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).SendKeys("Baktat");
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).SendKeys("Makroniciusz");
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).SendKeys("1 London Road");
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).SendKeys("1234567899876543");
-            driver.FindElement(By.XPath("//*[@id=\"cc_type\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_type\"]"))).SelectByText("American Express");
+            driver.FindElement(By.XPath(appSettings["Btn_Select_Continue"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).SendKeys("Baktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).SendKeys("Makroniciusz");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).SendKeys("1 London Road");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).SendKeys("1234567899876543");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
             driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]")).Click();
             new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]"))).SelectByText("June");
             driver.FindElement(By.XPath("//option[@value='6']")).Click();
@@ -195,7 +195,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void BokkedItinerary002()
+        public void BookedItinerary002()
         {
             var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
@@ -206,21 +206,21 @@ namespace SeleniumTests
 
             driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).SendKeys("Baktat");
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).SendKeys("Makroniciusz");
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).SendKeys("1 London Road");
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).SendKeys("1234567899876543");
-            driver.FindElement(By.XPath("//*[@id=\"cc_type\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_type\"]"))).SelectByText("American Express");
+            driver.FindElement(By.XPath(appSettings["Btn_Select_Continue"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).SendKeys("Baktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).SendKeys("Makroniciusz");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).SendKeys("1 London Road");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).SendKeys("1234567899876543");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
             driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]")).Click();
             new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]"))).SelectByText("June");
             driver.FindElement(By.XPath("//option[@value='6']")).Click();
@@ -373,21 +373,21 @@ namespace SeleniumTests
 
             driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"continue\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"first_name\"]")).SendKeys("Baktat");
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"last_name\"]")).SendKeys("Makroniciusz");
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"address\"]")).SendKeys("1 London Road");
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Click();
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).Clear();
-            driver.FindElement(By.XPath("//*[@id=\"cc_num\"]")).SendKeys("1234567899876543");
-            driver.FindElement(By.XPath("//*[@id=\"cc_type\"]")).Click();
-            new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_type\"]"))).SelectByText("American Express");
+            driver.FindElement(By.XPath(appSettings["Btn_Select_Continue"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).SendKeys("Baktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).SendKeys("Makroniciusz");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).SendKeys("1 London Road");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).SendKeys("1234567899876543");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
             driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]")).Click();
             new SelectElement(driver.FindElement(By.XPath("//*[@id=\"cc_exp_month\"]"))).SelectByText("June");
             driver.FindElement(By.XPath("//option[@value='6']")).Click();
