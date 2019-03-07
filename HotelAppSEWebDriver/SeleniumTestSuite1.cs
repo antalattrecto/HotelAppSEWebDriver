@@ -302,7 +302,7 @@ namespace SeleniumTests
             LoginMethod(username, password);
 
 
-            Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
+            Assert.IsTrue(IsElementPresent(By.XPath(appSettings["Lnk_Search_LogOut"])));
             driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText("Sydney");
             driver.FindElement(By.XPath(appSettings["Lst_Search_LocSydney"])).Click();
