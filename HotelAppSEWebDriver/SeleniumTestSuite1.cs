@@ -257,8 +257,8 @@ namespace SeleniumTests
             driver.FindElement(By.XPath(appSettings["Txt_Register_FullName"])).SendKeys("Berek Herek");
             driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).Clear();
             driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).SendKeys("test@test.tc");
-            driver.FindElement(By.Id("tnc_box")).Click();
-            driver.FindElement(By.Id("Submit")).Click();
+            driver.FindElement(By.XPath(appSettings["Chb_Register_Terms"])).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Register_Register"])).Click();
             Assert.AreEqual("Captcha is Empty", driver.FindElement(By.Id("captcha_span")).Text);
             driver.FindElement(By.LinkText("Go back to Login page")).Click();
 
@@ -270,20 +270,20 @@ namespace SeleniumTests
             var appSettings = ConfigurationManager.AppSettings;
 
             driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.XPath("/html/body/table[2]/tbody/tr/td[2]/form/table/tbody/tr[7]/td/a")).Click();
+            driver.FindElement(By.XPath(appSettings["Lnk_Login_Register"])).Click();
             driver.FindElement(By.XPath(appSettings["Txt_Register_UserName"])).Clear();
             driver.FindElement(By.XPath(appSettings["Txt_Register_UserName"])).SendKeys("makrobaktat");
-            driver.FindElement(By.Id("password")).Clear();
-            driver.FindElement(By.Id("password")).SendKeys("1234567");
-            driver.FindElement(By.Id("re_password")).Clear();
-            driver.FindElement(By.Id("re_password")).SendKeys("1234567");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_PassWord"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_PassWord"])).SendKeys("1234567");
+            driver.FindElement(By.XPath(appSettings["Txt_Register_ConfirmPassWord"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Register_ConfirmPassWord"])).SendKeys("1234567");
             driver.FindElement(By.XPath(appSettings["Txt_Register_FullName"])).Clear();
             driver.FindElement(By.XPath(appSettings["Txt_Register_FullName"])).SendKeys("Berek Herek");
             driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).Clear();
             driver.FindElement(By.XPath(appSettings["Txt_Register_Email"])).SendKeys("test@test.tc");
-            driver.FindElement(By.Id("tnc_box")).Click();
-            driver.FindElement(By.Id("Reset")).Click();
-            driver.FindElement(By.Id("Submit")).Click();
+            driver.FindElement(By.XPath(appSettings["Chb_Register_Terms"])).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Register_Reset"])).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Register_Register"])).Click();
             Assert.AreEqual("Username is Empty", driver.FindElement(By.Id("username_span")).Text);
             Assert.AreEqual("Password is Empty", driver.FindElement(By.Id("password_span")).Text);
             Assert.AreEqual("Confirm Password is Empty", driver.FindElement(By.Id("re_password_span")).Text);
@@ -306,7 +306,7 @@ namespace SeleniumTests
             driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText("Sydney");
             driver.FindElement(By.XPath(appSettings["Lst_Search_LocSydney"])).Click();
-            driver.FindElement(By.Id("Submit")).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Register_Register"])).Click();
             var a = driver.FindElement(By.XPath("(//input[@type='text'])[2]")).GetAttribute("value");
             //Assert.AreEqual("Sydney", a);
 
@@ -341,22 +341,24 @@ namespace SeleniumTests
         
         public void ResetPassword007()
         {
+            var appSettings = ConfigurationManager.AppSettings;
+
             LoginMethod(username, password);
             driver.FindElement(By.XPath("//a[contains(.,'Change Password')]")).Click();
-            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).Clear();
-            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).SendKeys(password);
-            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).Clear();
-            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).SendKeys("adactin456");
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassword"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassword"])).SendKeys(password);
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassword"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassword"])).SendKeys("adactin456");
             driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).Clear();
             driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).SendKeys("adactin456");
             driver.FindElement(By.XPath("//input[contains(@type,'submit')]")).Click();
             password = "adactin456";
             LoginMethod(username, password);
             driver.FindElement(By.XPath("//a[contains(.,'Change Password')]")).Click();
-            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).Clear();
-            driver.FindElement(By.XPath("//input[contains(@name,'current_pass')]")).SendKeys(password);
-            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).Clear();
-            driver.FindElement(By.XPath("//input[contains(@name,'new_password')]")).SendKeys("adactin123");
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassword"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassword"])).SendKeys(password);
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassword"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassword"])).SendKeys("adactin123");
             driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).Clear();
             driver.FindElement(By.XPath("//input[contains(@name,'re_password')]")).SendKeys("adactin123");
             driver.FindElement(By.XPath("//input[contains(@type,'submit')]")).Click();
