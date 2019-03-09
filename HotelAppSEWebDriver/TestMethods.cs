@@ -81,6 +81,16 @@ namespace HotelAppSEWebDriver
             driver.FindElement(By.XPath(appSettings["Btn_Login_Login"])).Click();
         }
 
+        public void LogOutMethod()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+            
+            driver.FindElement(By.XPath(appSettings["Lnk_Search_LogOut"])).Click();
+            driver.FindElement(By.LinkText("Click here to login again")).Click();
+
+        }
+
         public void SearchMethod(string location)
         {
             var appSettings = ConfigurationManager.AppSettings;
@@ -93,6 +103,54 @@ namespace HotelAppSEWebDriver
             driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"]))).SelectByText("2 - Two");
             driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+        }
+
+        public void BookMethod()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
+            driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Select_Continue"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).SendKeys("Baktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).SendKeys("Makroniciusz");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).SendKeys("1 London Road");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).SendKeys("1234567899876543");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"]))).SelectByText("June");
+            driver.FindElement(By.XPath("//option[@value='6']")).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"]))).SelectByText("2021");
+            driver.FindElement(By.XPath("//option[@value='2021']")).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).SendKeys("123");
+            driver.FindElement(By.XPath(appSettings["Btn_Book_Book"])).Click();
+        }
+
+        public void ChangePassword(string password, string newPassword)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+            driver.FindElement(By.XPath(appSettings["Lnk_Search_ChangePassWord"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassWord"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassWord"])).SendKeys(password);
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassWord"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassWord"])).SendKeys(newPassword);
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_ConfirmPassWord"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_ConfirmPassWord"])).SendKeys(newPassword);
+            driver.FindElement(By.XPath(appSettings["Btn_PassWord_Submit"])).Click();
         }
 
         public virtual bool IsElementPresent(By by)
