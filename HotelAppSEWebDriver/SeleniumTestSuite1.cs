@@ -146,7 +146,7 @@ namespace SeleniumTests
 
         [Test]
 
-        public void HomePage000()
+        public void Test000_HomePage()
         {
             var appSettings = ConfigurationManager.AppSettings;
 
@@ -156,7 +156,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void LoginBookLogout001()
+        public void Test001_LoginBookLogout()
         {
             var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
@@ -195,7 +195,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void BookedItinerary002()
+        public void Test002_BookedItinerary()
         {
             var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
@@ -232,8 +232,8 @@ namespace SeleniumTests
             driver.FindElement(By.XPath(appSettings["Btn_Book_Book"])).Click();
             var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
             driver.FindElement(By.LinkText("Booked Itinerary")).Click();
-            driver.FindElement(By.Id("order_id_text")).Clear();
-            driver.FindElement(By.Id("order_id_text")).SendKeys(a);
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
             driver.FindElement(By.Id("search_hotel_id")).Click();
             var b = driver.FindElement(By.XPath("(//input[contains(@type,'text')])[3]")).GetAttribute("value").ToString();
             Assert.AreEqual(a, b);
@@ -241,7 +241,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void RegisterUser003()
+        public void Test003_RegisterUser()
         {
             var appSettings = ConfigurationManager.AppSettings;
 
@@ -265,7 +265,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void RegisterUserResetButton004()
+        public void Test004_RegisterUserResetButton()
         {
             var appSettings = ConfigurationManager.AppSettings;
 
@@ -296,7 +296,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void SearchSelect005()
+        public void Test005_SearchSelect()
         {
             var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
@@ -323,7 +323,7 @@ namespace SeleniumTests
 
         [Test]
 
-        public void TitleCheck006()
+        public void Test006_TitleCheck()
         {
             driver.Navigate().GoToUrl(baseURL);
             string title = driver.Title;
@@ -339,7 +339,7 @@ namespace SeleniumTests
 
         [Test]
         
-        public void ResetPassword007()
+        public void Test007_ResetPassword()
         {
             var appSettings = ConfigurationManager.AppSettings;
 
@@ -369,7 +369,7 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void CancelItinerary008()
+        public void Test008_CancelItinerary()
         {
             var appSettings = ConfigurationManager.AppSettings;
             LoginMethod(username, password);
@@ -395,7 +395,6 @@ namespace SeleniumTests
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
             driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"]))).SelectByText("June");
-            driver.FindElement(By.XPath("//option[@value='6']")).Click();
             driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"]))).SelectByText("2021");
             driver.FindElement(By.XPath("//option[@value='2021']")).Click();
@@ -405,13 +404,13 @@ namespace SeleniumTests
             driver.FindElement(By.XPath(appSettings["Btn_Book_Book"])).Click();
             var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
             driver.FindElement(By.LinkText("Booked Itinerary")).Click();
-            driver.FindElement(By.Id("order_id_text")).Clear();
-            driver.FindElement(By.Id("order_id_text")).SendKeys(a);
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
             driver.FindElement(By.Id("search_hotel_id")).Click();
             driver.FindElement(By.XPath("(//input[@type='button'])[1]")).Click();
             driver.SwitchTo().Alert().Accept();
-            driver.FindElement(By.Id("order_id_text")).Clear();
-            driver.FindElement(By.Id("order_id_text")).SendKeys(a);
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
             driver.FindElement(By.Id("search_hotel_id")).Click();
             var b = driver.FindElement(By.XPath("//label[contains(@class,'reg_error')]")).Text;
             Assert.AreEqual("0 result(s) found. Show all", b);
@@ -420,7 +419,7 @@ namespace SeleniumTests
 
         [Test]
 
-        public void SearchFieldValidation009()
+        public void Test009_SearchFieldValidation()
         {
             var appSettings = ConfigurationManager.AppSettings;
 
@@ -432,7 +431,7 @@ namespace SeleniumTests
 
         [Test]
 
-        public void CheckLoginGreeting010()
+        public void Test010_CheckLoginGreeting()
         {
             LoginMethod(username, password);
 
