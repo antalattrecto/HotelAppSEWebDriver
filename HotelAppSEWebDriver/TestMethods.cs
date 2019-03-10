@@ -45,7 +45,7 @@ namespace HotelAppSEWebDriver
         public virtual void SetupTest()
         {
             driver = new FirefoxDriver();
-            baseURL = "https://www.adactin.com/HotelApp/";
+            baseURL = ConfigurationManager.AppSettings["url"];
             verificationErrors = new StringBuilder();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
