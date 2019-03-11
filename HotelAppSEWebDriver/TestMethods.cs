@@ -45,7 +45,7 @@ namespace HotelAppSEWebDriver
         public virtual void SetupTest()
         {
             driver = new FirefoxDriver();
-            baseURL = ConfigurationManager.AppSettings["url"];
+            baseURL = ConfigurationManager.AppSettings["build1Url"];
             verificationErrors = new StringBuilder();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
