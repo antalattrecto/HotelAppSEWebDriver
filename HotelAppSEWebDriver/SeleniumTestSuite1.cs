@@ -7,6 +7,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Configuration;
+using System.Diagnostics;
+using System.Reflection;
+using ExcelDataReader;
+using System.Data;
 using HotelAppSEWebDriver;
 
 
