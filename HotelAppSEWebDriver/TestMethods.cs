@@ -11,6 +11,10 @@ using System.Diagnostics;
 using System.Reflection;
 using ExcelDataReader;
 using System.Data;
+using System.IO;
+using CSV;
+using CsvHelper;
+using System.Collections.Generic;
 
 
 namespace HotelAppSEWebDriver
@@ -30,8 +34,6 @@ namespace HotelAppSEWebDriver
         }
     }
 
-
-
     public class TestMethods
     {
         internal IWebDriver driver;
@@ -41,7 +43,6 @@ namespace HotelAppSEWebDriver
         internal string password = "adactin123";
         internal string location = "Sydney";
         internal bool acceptNextAlert = true;
-
 
 
         //implement Setup method in parent
@@ -106,6 +107,33 @@ namespace HotelAppSEWebDriver
             driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"]))).SelectByText("2 - Two");
             driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+        }
+
+
+        public void DataDrivenSearchMethod()
+        {
+            string locationResult;
+
+            var appSettings = ConfigurationManager.AppSettings;
+
+            using (var reader = new StreamReader(appSettings["filePath"]))
+            using (var csv = new CsvReader(reader))
+            {
+                var records = csv.GetRecords<CSVReaderClass>();
+
+                foreach (var record in records)
+                {
+                    locationResult = record.Location;                    
+
+                    driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
+                    new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(locationResult);
+                    var a = driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]));
+                    Assert.IsTrue(Regex.IsMatch(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Text, locationResult));
+
+                }
+
+            }
+                  
         }
 
         public void BookMethod()

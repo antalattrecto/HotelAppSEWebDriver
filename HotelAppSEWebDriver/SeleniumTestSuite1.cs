@@ -14,6 +14,7 @@ using System.Data;
 using HotelAppSEWebDriver;
 
 
+
 namespace SeleniumTests
 {
    
@@ -52,6 +53,8 @@ namespace SeleniumTests
         public void Test001_LoginBookLogout()
         {
             var appSettings = ConfigurationManager.AppSettings;
+
+           
 
             LoginMethod(username, password);
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
@@ -245,6 +248,14 @@ namespace SeleniumTests
 
             else
                 Console.WriteLine("Test Failed! Greeting is: {0}", greeting);
+        }
+
+        [Test]
+
+        public void Test011_LoopSearch()
+        {
+            LoginMethod(username, password);
+            DataDrivenSearchMethod();
         }
 
 
