@@ -112,7 +112,6 @@ namespace HotelAppSEWebDriver
 
         public void DataDrivenSearchMethod()
         {
-            string locationResult;
 
             var appSettings = ConfigurationManager.AppSettings;
 
@@ -123,12 +122,20 @@ namespace HotelAppSEWebDriver
 
                 foreach (var record in records)
                 {
-                    locationResult = record.Location;                    
+                    string locationResult = record.Location;                    
 
                     driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
                     new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(locationResult);
                     var a = driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]));
-                    Assert.IsTrue(Regex.IsMatch(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Text, locationResult));
+                    driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"])).Click();
+                    new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"]))).SelectByText("2 - Two");
+                    driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"])).Click();
+                    new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"]))).SelectByText("2 - Two");
+                    driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+                    driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
+                    string textResult = driver.FindElement(By.XPath("//input[@name='location_1'][contains(@id,'1')]")).GetAttribute("value");
+                    Assert.IsTrue(textResult.Contains(locationResult));
+                    driver.FindElement(By.XPath(appSettings["Btn_Search_Cancel"])).Click();
 
                 }
 
