@@ -29,7 +29,11 @@ namespace SeleniumTests
         [SetUp]
         public override void SetupTest()
         {
+            GlobalSetup obj = new GlobalSetup();
+            obj.KillGeckoDriver();
+
             base.SetupTest();
+            
         }
 
         [TearDown]
@@ -45,6 +49,26 @@ namespace SeleniumTests
             var appSettings = ConfigurationManager.AppSettings;
 
             driver.Navigate().GoToUrl(baseURL);
+
+            WebDriverWait loginLinkWait = new WebDriverWait(driver, new TimeSpan(0,0,3));
+            var element = loginLinkWait.Until(condition =>
+            {
+                try
+                {
+                    var elementToBeDisplayed = driver.FindElement(By.XPath(appSettings["Btn_Login_Login"]));
+                    return elementToBeDisplayed.Displayed;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+
+                });
+
             Assert.IsTrue(IsElementPresent(By.XPath(appSettings["Btn_Login_Login"])));
             Assert.IsTrue(IsElementPresent(By.LinkText("New User Register Here")));
         }
