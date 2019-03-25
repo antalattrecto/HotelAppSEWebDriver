@@ -32,17 +32,48 @@ namespace HotelAppSEWebDriver
                 proc.Kill();
             }
         }
+
     }
 
     public class TestMethods
     {
         internal IWebDriver driver;
         internal StringBuilder verificationErrors;
-        internal string baseURL;
-        internal string username = "makrobaktat";
-        internal string password = "adactin123";
-        internal string location = "Sydney";
         internal bool acceptNextAlert = true;
+        internal string baseURL;
+
+        public void CSVDefualtVaules()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+            using (var reader = new StreamReader(appSettings["defaultValuesFilePath"]))
+
+            using (var csv = new CsvReader(reader))
+            {
+                var records = csv.GetRecords<CSVDefaults>();
+                {
+
+                    foreach (var record in records)
+                    {
+
+                        Username = record.Username;
+                        Password = record.Password;
+                        Location = record.DefaultLocation;
+                    }
+                    
+
+                }
+
+            }
+        }
+
+
+
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Location { get; set; }
+
+
 
 
         //implement Setup method in parent
@@ -52,6 +83,7 @@ namespace HotelAppSEWebDriver
             baseURL = ConfigurationManager.AppSettings["build1Url"];
             verificationErrors = new StringBuilder();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            CSVDefualtVaules();
         }
 
 
@@ -60,7 +92,11 @@ namespace HotelAppSEWebDriver
         {
             try
             {
+               // GlobalSetup obj = new GlobalSetup();
+                //obj.KillGeckoDriver();
                 driver.Quit();
+                
+                
             }
             catch (Exception)
             {
@@ -71,17 +107,17 @@ namespace HotelAppSEWebDriver
 
 
         //implement reusable methods
-        public void LoginMethod(string username, string password)
+        public void LoginMethod(string Username, string Password)
         {
             var appSettings = ConfigurationManager.AppSettings;
 
             driver.Navigate().GoToUrl(baseURL);
             driver.FindElement(By.XPath(appSettings["Txt_Login_Username"])).Click();
             driver.FindElement(By.XPath(appSettings["Txt_Login_Username"])).Clear();
-            driver.FindElement(By.XPath(appSettings["Txt_Login_Username"])).SendKeys(username);
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Username"])).SendKeys(Username);
             driver.FindElement(By.XPath(appSettings["Txt_Login_Password"])).Click();
             driver.FindElement(By.XPath(appSettings["Txt_Login_Password"])).Clear();
-            driver.FindElement(By.XPath(appSettings["Txt_Login_Password"])).SendKeys(password);
+            driver.FindElement(By.XPath(appSettings["Txt_Login_Password"])).SendKeys(Password);
             driver.FindElement(By.XPath(appSettings["Btn_Login_Login"])).Click();
         }
 
@@ -95,12 +131,12 @@ namespace HotelAppSEWebDriver
 
         }
 
-        public void SearchMethod(string location)
+        public void SearchMethod(string Location)
         {
             var appSettings = ConfigurationManager.AppSettings;
 
             driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
-            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(location);
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(Location);
             driver.FindElement(By.XPath(appSettings["Lst_Search_LocSydney"])).Click();
             driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"]))).SelectByText("2 - Two");
@@ -177,13 +213,13 @@ namespace HotelAppSEWebDriver
             driver.FindElement(By.XPath(appSettings["Btn_Book_Book"])).Click();
         }
 
-        public void ChangePassword(string password, string newPassword)
+        public void ChangePassword(string Password, string newPassword)
         {
             var appSettings = ConfigurationManager.AppSettings;
 
             driver.FindElement(By.XPath(appSettings["Lnk_Search_ChangePassWord"])).Click();
             driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassWord"])).Clear();
-            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassWord"])).SendKeys(password);
+            driver.FindElement(By.XPath(appSettings["Txt_PassWord_CurrentPassWord"])).SendKeys(Password);
             driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassWord"])).Clear();
             driver.FindElement(By.XPath(appSettings["Txt_PassWord_NewPassWord"])).SendKeys(newPassword);
             driver.FindElement(By.XPath(appSettings["Txt_PassWord_ConfirmPassWord"])).Clear();

@@ -29,17 +29,17 @@ namespace SeleniumTests
         [SetUp]
         public override void SetupTest()
         {
-            GlobalSetup obj = new GlobalSetup();
-            obj.KillGeckoDriver();
-
+            
             base.SetupTest();
             
         }
 
         [TearDown]
         public override void TeardownTest()
-        {
+        { 
+
             base.TeardownTest();
+            
         }
 
         [Test]
@@ -80,9 +80,9 @@ namespace SeleniumTests
 
            
 
-            LoginMethod(username, password);
+            LoginMethod(Username, Password);
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
-            SearchMethod(location);
+            SearchMethod(Location);
             BookMethod();
             LogOutMethod();
 
@@ -93,9 +93,9 @@ namespace SeleniumTests
         {
             var appSettings = ConfigurationManager.AppSettings;
 
-            LoginMethod(username, password);
+            LoginMethod(Username, Password);
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
-            SearchMethod(location);
+            SearchMethod(Location);
             BookMethod();
    
             var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
@@ -168,7 +168,7 @@ namespace SeleniumTests
         {
             var appSettings = ConfigurationManager.AppSettings;
 
-            LoginMethod(username, password);
+            LoginMethod(Username, Password);
 
             Assert.IsTrue(IsElementPresent(By.XPath(appSettings["Lnk_Search_LogOut"])));
             driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
@@ -211,10 +211,10 @@ namespace SeleniumTests
         {
             var appSettings = ConfigurationManager.AppSettings;
 
-            LoginMethod(username, password);
-            ChangePassword(password, "adactin456");
-            LoginMethod(username, "adactin456");
-            ChangePassword("adactin456", password);
+            LoginMethod(Username, Password);
+            ChangePassword(Password, "adactin456");
+            LoginMethod(Username, "adactin456");
+            ChangePassword("adactin456", Password);
             
             var result = driver.FindElement(By.XPath("//span[@class='reg_error'][contains(.,'Your Password is successfully updated!!!')]")).Text;
             Assert.AreEqual("Your Password is successfully updated!!!", result);
@@ -225,9 +225,9 @@ namespace SeleniumTests
         public void Test008_CancelItinerary()
         {
             var appSettings = ConfigurationManager.AppSettings;
-            LoginMethod(username, password);
+            LoginMethod(Username, Password);
 
-            SearchMethod(location);
+            SearchMethod(Location);
             BookMethod();
 
             var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
@@ -251,7 +251,7 @@ namespace SeleniumTests
         {
             var appSettings = ConfigurationManager.AppSettings;
 
-            LoginMethod(username, password);
+            LoginMethod(Username, Password);
             driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
             string message = driver.FindElement(By.XPath("//span[contains(.,'Please Select a Location')]")).Text;
             Assert.AreEqual("Please Select a Location", message);
@@ -261,7 +261,7 @@ namespace SeleniumTests
 
         public void Test010_CheckLoginGreeting()
         {
-            LoginMethod(username, password);
+            LoginMethod(Username, Password);
 
             string greeting = driver.FindElement(By.XPath("//input[@type='text'][contains(@id,'show')]")).GetAttribute("value");
 
@@ -278,7 +278,7 @@ namespace SeleniumTests
 
         public void Test011_LoopSearch()
         {
-            LoginMethod(username, password);
+            LoginMethod(Username, Password);
             DataDrivenSearchMethod();
         }
 

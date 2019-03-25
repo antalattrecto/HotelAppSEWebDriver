@@ -94,10 +94,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="DataPool\Locations.csv">
+    <None Include="DataPool\DefaultValues.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="DataPool\Locations.xlsx">
+    <None Include="DataPool\Locations.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
