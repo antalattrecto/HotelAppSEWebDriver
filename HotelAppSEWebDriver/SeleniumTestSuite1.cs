@@ -17,6 +17,7 @@ using HotelAppSEWebDriver;
 
 namespace SeleniumTests
 {
+
    
 
     [TestFixture]
@@ -280,6 +281,34 @@ namespace SeleniumTests
         {
             LoginMethod(Username, Password);
             DataDrivenSearchMethod();
+        }
+
+        [Test]
+        public void Test012_ValidateSearch()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+            LoginMethod(Username, Password);
+
+            driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(Location);
+            driver.FindElement(By.XPath(appSettings["Lst_Search_LocSydney"])).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Search_Hotels"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Hotels"]))).SelectByText("Hotel Sunshine");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_RoomType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_RoomType"]))).SelectByText("Deluxe");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"]))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckInDate"])).Clear();
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckInDate"])).SendKeys("01/01/2000");
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckOutDate"])).Clear();
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckOutDate"])).SendKeys("02/01/2000");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"]))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Search_ChildRoom"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_ChildRoom"]))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
         }
 
 
