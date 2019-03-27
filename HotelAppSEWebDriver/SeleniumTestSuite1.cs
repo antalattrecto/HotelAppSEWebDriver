@@ -85,6 +85,14 @@ namespace SeleniumTests
             Assert.IsTrue(IsElementPresent(By.LinkText("Logout")));
             SearchMethod(Location);
             BookMethod();
+            var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
+            driver.FindElement(By.LinkText("Booked Itinerary")).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
+            driver.FindElement(By.Id("search_hotel_id")).Click();
+            driver.FindElement(By.XPath("(//input[@type='button'])[1]")).Click();
+            driver.SwitchTo().Alert().Accept();
+
             LogOutMethod();
 
         }
@@ -106,6 +114,12 @@ namespace SeleniumTests
             driver.FindElement(By.Id("search_hotel_id")).Click();
             var b = driver.FindElement(By.XPath("(//input[contains(@type,'text')])[3]")).GetAttribute("value").ToString();
             Assert.AreEqual(a, b);
+
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
+            driver.FindElement(By.Id("search_hotel_id")).Click();
+            driver.FindElement(By.XPath("(//input[@type='button'])[1]")).Click();
+            driver.SwitchTo().Alert().Accept();
 
         }
 

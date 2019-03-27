@@ -211,6 +211,7 @@ namespace HotelAppSEWebDriver
             driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).Clear();
             driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).SendKeys("123");
             driver.FindElement(By.XPath(appSettings["Btn_Book_Book"])).Click();
+
         }
 
         public void ChangePassword(string Password, string newPassword)
