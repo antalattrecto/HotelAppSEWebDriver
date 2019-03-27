@@ -309,6 +309,29 @@ namespace SeleniumTests
             driver.FindElement(By.XPath(appSettings["Lst_Search_ChildRoom"])).Click();
             new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_ChildRoom"]))).SelectByText("2 - Two");
             driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
+
+            var hotelName = driver.FindElement(By.XPath(appSettings["Field_Select_HotelName"])).GetAttribute("value");
+            var location = driver.FindElement(By.XPath(appSettings["Field_Select_Location"])).GetAttribute("value");
+            var rooms = driver.FindElement(By.XPath(appSettings["Field_Select_Rooms"])).GetAttribute("value");
+            var arrivalDate = driver.FindElement(By.XPath(appSettings["Field_Select_ArrivalDate"])).GetAttribute("value");
+            var departureDate = driver.FindElement(By.XPath(appSettings["Field_Select_DepartureDate"])).GetAttribute("value");
+            var noOfDays = driver.FindElement(By.XPath(appSettings["Field_Select_NoOfDays"])).GetAttribute("value");
+            var roomType = driver.FindElement(By.XPath(appSettings["Field_Select_RoomType"])).GetAttribute("value");
+            var pricePerNight = driver.FindElement(By.XPath(appSettings["Field_Select_PricePerNight"])).GetAttribute("value");
+            var totalPrice = driver.FindElement(By.XPath(appSettings["Field_Select_TotalPrice"])).GetAttribute("value");
+
+            Assert.AreEqual("Hotel Sunshine", hotelName);
+            Assert.AreEqual("Sydney", location);
+            Assert.AreEqual("2 Rooms", rooms);
+            Assert.AreEqual("01/01/2000", arrivalDate);
+            Assert.AreEqual("02/01/2000", departureDate);
+            Assert.AreEqual("1 Days", noOfDays);
+            Assert.AreEqual("Deluxe", roomType);
+            Assert.AreEqual("AUD $ 375", pricePerNight);
+            Assert.AreEqual("AUD $ 385", totalPrice);
+
+            LogOutMethod();
+
         }
 
 
