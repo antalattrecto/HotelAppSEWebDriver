@@ -344,7 +344,108 @@ namespace SeleniumTests
             Assert.AreEqual("AUD $ 375", pricePerNight);
             Assert.AreEqual("AUD $ 385", totalPrice);
 
+
             LogOutMethod();
+
+        }
+
+        [Test]
+        public void Test013_ValidateBooking()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+            LoginMethod(Username, Password);
+
+            //search
+
+            driver.FindElement(By.XPath(appSettings["Lst_Search_Location"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Location"]))).SelectByText(Location);
+            driver.FindElement(By.XPath(appSettings["Lst_Search_LocSydney"])).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Search_Hotels"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_Hotels"]))).SelectByText("Hotel Sunshine");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_RoomType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_RoomType"]))).SelectByText("Deluxe");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_RoomNo"]))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckInDate"])).Clear();
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckInDate"])).SendKeys("01/01/2000");
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckOutDate"])).Clear();
+            driver.FindElement(By.XPath(appSettings["DateTime_Search_CheckOutDate"])).SendKeys("02/01/2000");
+            driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_AdultRoom"]))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath("(//option[@value='2'])[2]")).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Search_ChildRoom"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Search_ChildRoom"]))).SelectByText("2 - Two");
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
+            driver.FindElement(By.XPath(appSettings["RBtn_Select_Select"])).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Select_Continue"])).Click();
+
+            //book
+
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).SendKeys("Baktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).SendKeys("Makroniciusz");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).SendKeys("1 London Road");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).SendKeys("1234567899876543");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"]))).SelectByText("June");
+            driver.FindElement(By.XPath("//option[@value='6']")).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"]))).SelectByText("2021");
+            driver.FindElement(By.XPath("//option[@value='2021']")).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).SendKeys("123");
+            driver.FindElement(By.XPath(appSettings["Btn_Book_Book"])).Click();
+            var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
+            driver.FindElement(By.LinkText("Booked Itinerary")).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
+            driver.FindElement(By.Id("search_hotel_id")).Click();
+
+            //validate
+
+            string hotelName = driver.FindElement(By.XPath("//input[contains(@value,'Hotel Sunshine')]")).GetAttribute("value");
+            string location = driver.FindElement(By.XPath("//input[contains(@value,'Sydney')]")).GetAttribute("value");
+            string rooms = driver.FindElement(By.XPath("//input[@value='2 Rooms']")).GetAttribute("value");
+            string firstName = driver.FindElement(By.XPath("//input[@value='Baktat']")).GetAttribute("value");
+            string lastName = driver.FindElement(By.XPath("//input[contains(@value,'Makroniciusz')]")).GetAttribute("value");
+            string arrivalDate = driver.FindElement(By.XPath("//input[contains(@value,'01/01/2000')]")).GetAttribute("value");
+            string departureDate = driver.FindElement(By.XPath("//input[contains(@value,'02/01/2000')]")).GetAttribute("value");
+            string noOfDays = driver.FindElement(By.XPath("//input[contains(@value,'1 Days')]")).GetAttribute("value");
+            string roomType = driver.FindElement(By.XPath("//input[contains(@value,'Deluxe')]")).GetAttribute("value");
+            string pricePerNight = driver.FindElement(By.XPath("//input[contains(@value,'AUD $ 375')]")).GetAttribute("value");
+            string totalPrice = driver.FindElement(By.XPath("//input[contains(@value,'AUD $ 424')]")).GetAttribute("value");
+
+            Assert.AreEqual("Hotel Sunshine", hotelName);
+            Assert.AreEqual("Sydney", location);
+            Assert.AreEqual("2 Rooms", rooms);
+            Assert.AreEqual("Baktat", firstName);
+            Assert.AreEqual("Makroniciusz", lastName);
+            Assert.AreEqual("01/01/2000", arrivalDate);
+            Assert.AreEqual("02/01/2000", departureDate);
+            Assert.AreEqual("1 Days", noOfDays);
+            Assert.AreEqual("Deluxe", roomType);
+            Assert.AreEqual("AUD $ 375", pricePerNight);
+            Assert.AreEqual("AUD $ 424", totalPrice);
+
+
+            //delete booking for cleanup
+
+            driver.FindElement(By.XPath("(//input[@type='button'])[1]")).Click();
+            driver.SwitchTo().Alert().Accept();
+
+            LogOutMethod();
+
 
         }
 
