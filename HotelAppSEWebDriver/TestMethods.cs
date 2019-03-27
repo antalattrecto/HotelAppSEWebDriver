@@ -73,7 +73,7 @@ namespace HotelAppSEWebDriver
         public string Password { get; set; }
         public string Location { get; set; }
 
-
+       
 
 
         //implement Setup method in parent

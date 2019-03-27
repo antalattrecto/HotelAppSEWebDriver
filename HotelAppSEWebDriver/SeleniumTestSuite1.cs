@@ -449,6 +449,53 @@ namespace SeleniumTests
 
         }
 
+        [Test]
+
+        public void Test014_AlertWhenExpiryInPast()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+            LoginMethod(Username, Password);
+            SearchMethod(Location);
+
+            driver.FindElement(By.XPath(appSettings["Btn_Search_Search"])).Click();
+            driver.FindElement(By.XPath("//*[@id=\"radiobutton_2\"]")).Click();
+            driver.FindElement(By.XPath(appSettings["Btn_Select_Continue"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_FirstName"])).SendKeys("Baktat");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_LastName"])).SendKeys("Makroniciusz");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_Address"])).SendKeys("1 London Road");
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CCNo"])).SendKeys("1234567899876543");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCType"]))).SelectByText("American Express");
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCMonth"]))).SelectByText("June");
+            driver.FindElement(By.XPath("//option[@value='6']")).Click();
+            driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"])).Click();
+            new SelectElement(driver.FindElement(By.XPath(appSettings["Lst_Book_CCYear"]))).SelectByText("2011");
+            driver.FindElement(By.XPath("//option[@value='2011']")).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).Click();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).Clear();
+            driver.FindElement(By.XPath(appSettings["Txt_Book_CVV"])).SendKeys("123");
+            driver.FindElement(By.XPath(appSettings["Btn_Book_Book"])).Click();
+
+            string alertText = driver.SwitchTo().Alert().Text;
+            Assert.AreEqual("Expiry year cannot be in Past", alertText);
+
+            driver.SwitchTo().Alert().Accept();
+
+            LogOutMethod();
+
+
+        }
+
 
 
         public override bool IsElementPresent(By by)
