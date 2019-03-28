@@ -247,11 +247,19 @@ namespace SeleniumTests
 
             var a = driver.FindElement(By.Id("order_no")).GetAttribute("value").ToString();
             driver.FindElement(By.LinkText("Booked Itinerary")).Click();
-            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
-            driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
-            driver.FindElement(By.Id("search_hotel_id")).Click();
-            driver.FindElement(By.XPath("(//input[@type='button'])[1]")).Click();
+
+            //driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
+            //driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
+            //driver.FindElement(By.Id("search_hotel_id")).Click();
+
+            // using some dynamic stuff here 
+
+            driver.FindElement(By.XPath("//input[contains(@value,'Cancel " + a + "')]")).Click();
+
             driver.SwitchTo().Alert().Accept();
+
+            // using the search to validate cancellation
+
             driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).Clear();
             driver.FindElement(By.XPath(appSettings["Txt_Booked_SearchField"])).SendKeys(a);
             driver.FindElement(By.Id("search_hotel_id")).Click();
