@@ -504,6 +504,32 @@ namespace SeleniumTests
 
         }
 
+        [Test]
+
+        public void Test015_GreetingCheck()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+
+            
+            LoginMethod(Username, Password);
+            //Assert.IsTrue(IsElementPresent(By.XPath(appSettings["Lnk_Search_LogOut"])));
+            try
+            {
+                IWebElement welcomeText = driver.FindElement(By.XPath(appSettings["Lbl_Search_WelcomeText"]));
+                string message = welcomeText.GetAttribute("value");
+
+                if (message.Contains("Hello " + Username))
+                {
+                    Console.WriteLine("Login test passed for: " + Username);
+                }
+            }
+
+            catch (NoSuchElementException e)
+            {
+                Console.WriteLine("Login test failed for: " + Username + "Exception was: " + e);
+            }
+        }
+
 
 
         public override bool IsElementPresent(By by)
