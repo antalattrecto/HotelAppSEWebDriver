@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="16" result="Passed" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="62" engine-version="3.9.0.0" clr-version="4.0.30319.42000" start-time="2019-04-03 19:37:08Z" end-time="2019-04-03 19:40:54Z" duration="225.431875">
+  <command-line><![CDATA[nunit3-console.exe  "C:\Users\AntalNagy\source\repos\HotelAppSEWebDriver\HotelAppSEWebDriver\bin\Debug\HotelAppSEWebDriver.dll" --work="D:"]]></command-line>
+  <test-suite type="Assembly" id="0-1018" name="HotelAppSEWebDriver.dll" fullname="HotelAppSEWebDriver.dll" runstate="Runnable" testcasecount="16" result="Passed" start-time="2019-04-03 19:37:09Z" end-time="2019-04-03 19:40:54Z" duration="224.910081" total="16" passed="16" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="62">
+    <environment framework-version="3.11.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.17763.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit.org\nunit-console" machine-name="INV-UK00045" user="AntalNagy" user-domain="AzureAD" culture="en-GB" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="D:" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageTargetFrameworkName" value=".NETFramework,Version=v4.7.2" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="8" />
+    </settings>
+    <properties>
+      <property name="_PID" value="7028" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <test-suite type="SetUpFixture" id="0-1000" name="HotelAppSEWebDriver" fullname="HotelAppSEWebDriver.GlobalSetup" classname="HotelAppSEWebDriver.GlobalSetup" runstate="Runnable" testcasecount="0" result="Passed" start-time="2019-04-03 19:37:09Z" end-time="2019-04-03 19:37:09Z" duration="0.000907" total="0" passed="0" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="0" />
+    <test-suite type="TestSuite" id="0-1020" name="SeleniumTests" fullname="SeleniumTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2019-04-03 19:37:09Z" end-time="2019-04-03 19:40:54Z" duration="224.888981" total="16" passed="16" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="62">
+      <test-suite type="TestFixture" id="0-1001" name="SeleniumTestSuite1" fullname="SeleniumTests.SeleniumTestSuite1" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" testcasecount="16" result="Passed" start-time="2019-04-03 19:37:09Z" end-time="2019-04-03 19:40:54Z" duration="224.877725" total="16" passed="16" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="62">
+        <test-case id="0-1002" name="Test000_HomePage" fullname="SeleniumTests.SeleniumTestSuite1.Test000_HomePage" methodname="Test000_HomePage" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="839548686" result="Passed" start-time="2019-04-03 19:37:09Z" end-time="2019-04-03 19:37:16Z" duration="6.831926" asserts="3" />
+        <test-case id="0-1003" name="Test001_LoginBookLogout" fullname="SeleniumTests.SeleniumTestSuite1.Test001_LoginBookLogout" methodname="Test001_LoginBookLogout" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="571969317" result="Passed" start-time="2019-04-03 19:37:16Z" end-time="2019-04-03 19:37:38Z" duration="21.687951" asserts="2" />
+        <test-case id="0-1004" name="Test002_BookedItinerary" fullname="SeleniumTests.SeleniumTestSuite1.Test002_BookedItinerary" methodname="Test002_BookedItinerary" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="505499042" result="Passed" start-time="2019-04-03 19:37:38Z" end-time="2019-04-03 19:37:58Z" duration="20.096967" asserts="3" />
+        <test-case id="0-1005" name="Test003_RegisterUser" fullname="SeleniumTests.SeleniumTestSuite1.Test003_RegisterUser" methodname="Test003_RegisterUser" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="236415336" result="Passed" start-time="2019-04-03 19:37:58Z" end-time="2019-04-03 19:38:05Z" duration="7.099225" asserts="2" />
+        <test-case id="0-1006" name="Test004_RegisterUserResetButton" fullname="SeleniumTests.SeleniumTestSuite1.Test004_RegisterUserResetButton" methodname="Test004_RegisterUserResetButton" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="198618466" result="Passed" start-time="2019-04-03 19:38:05Z" end-time="2019-04-03 19:38:12Z" duration="7.133928" asserts="8" />
+        <test-case id="0-1007" name="Test005_SearchSelect" fullname="SeleniumTests.SeleniumTestSuite1.Test005_SearchSelect" methodname="Test005_SearchSelect" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="369738741" result="Passed" start-time="2019-04-03 19:38:12Z" end-time="2019-04-03 19:38:21Z" duration="9.301416" asserts="2">
+          <output><![CDATA[Correct Sydney
+]]></output>
+        </test-case>
+        <test-case id="0-1008" name="Test006_TitleCheck" fullname="SeleniumTests.SeleniumTestSuite1.Test006_TitleCheck" methodname="Test006_TitleCheck" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="2023349098" result="Passed" start-time="2019-04-03 19:38:21Z" end-time="2019-04-03 19:38:26Z" duration="4.675832" asserts="1">
+          <output><![CDATA[Test Passed - Title is: AdactIn.com - Hotel Reservation System
+]]></output>
+        </test-case>
+        <test-case id="0-1009" name="Test007_ResetPassword" fullname="SeleniumTests.SeleniumTestSuite1.Test007_ResetPassword" methodname="Test007_ResetPassword" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="1373371283" result="Passed" start-time="2019-04-03 19:38:26Z" end-time="2019-04-03 19:38:53Z" duration="27.279814" asserts="2" />
+        <test-case id="0-1010" name="Test008_CancelItinerary" fullname="SeleniumTests.SeleniumTestSuite1.Test008_CancelItinerary" methodname="Test008_CancelItinerary" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="1100904121" result="Passed" start-time="2019-04-03 19:38:53Z" end-time="2019-04-03 19:39:14Z" duration="20.850565" asserts="2" />
+        <test-case id="0-1011" name="Test009_SearchFieldValidation" fullname="SeleniumTests.SeleniumTestSuite1.Test009_SearchFieldValidation" methodname="Test009_SearchFieldValidation" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="1623047192" result="Passed" start-time="2019-04-03 19:39:14Z" end-time="2019-04-03 19:39:21Z" duration="7.135293" asserts="2" />
+        <test-case id="0-1012" name="Test010_CheckLoginGreeting" fullname="SeleniumTests.SeleniumTestSuite1.Test010_CheckLoginGreeting" methodname="Test010_CheckLoginGreeting" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="1696364023" result="Passed" start-time="2019-04-03 19:39:21Z" end-time="2019-04-03 19:39:29Z" duration="7.674926" asserts="1">
+          <output><![CDATA[Test Passed! Greeting is: Hello makrobaktat!
+]]></output>
+        </test-case>
+        <test-case id="0-1013" name="Test011_LoopSearch" fullname="SeleniumTests.SeleniumTestSuite1.Test011_LoopSearch" methodname="Test011_LoopSearch" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="1943589751" result="Passed" start-time="2019-04-03 19:39:29Z" end-time="2019-04-03 19:39:57Z" duration="27.879338" asserts="9" />
+        <test-case id="0-1014" name="Test012_ValidateSearch" fullname="SeleniumTests.SeleniumTestSuite1.Test012_ValidateSearch" methodname="Test012_ValidateSearch" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="168879919" result="Passed" start-time="2019-04-03 19:39:57Z" end-time="2019-04-03 19:40:09Z" duration="12.399027" asserts="10" />
+        <test-case id="0-1015" name="Test013_ValidateBooking" fullname="SeleniumTests.SeleniumTestSuite1.Test013_ValidateBooking" methodname="Test013_ValidateBooking" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="1478232743" result="Passed" start-time="2019-04-03 19:40:09Z" end-time="2019-04-03 19:40:32Z" duration="23.311470" asserts="12" />
+        <test-case id="0-1016" name="Test014_AlertWhenExpiryInPast" fullname="SeleniumTests.SeleniumTestSuite1.Test014_AlertWhenExpiryInPast" methodname="Test014_AlertWhenExpiryInPast" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="962035075" result="Passed" start-time="2019-04-03 19:40:32Z" end-time="2019-04-03 19:40:47Z" duration="14.646919" asserts="2" />
+        <test-case id="0-1017" name="Test015_GreetingCheck" fullname="SeleniumTests.SeleniumTestSuite1.Test015_GreetingCheck" methodname="Test015_GreetingCheck" classname="SeleniumTests.SeleniumTestSuite1" runstate="Runnable" seed="1624865103" result="Passed" start-time="2019-04-03 19:40:47Z" end-time="2019-04-03 19:40:54Z" duration="6.865797" asserts="1">
+          <output><![CDATA[Login test passed for: makrobaktat
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
